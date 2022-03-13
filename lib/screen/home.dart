@@ -1,4 +1,5 @@
 import 'package:addcart/model/cardmodel.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 class HomePage extends StatelessWidget {
@@ -38,19 +39,73 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[50],
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
-        title: Text("Addcart"),
+        title: Text('Ecom App'),
+        backgroundColor: Colors.black,
         actions: <Widget>[
-          // IconButton(
-          //   icon: Icon(Icons.shopping_cart),
-          //   onPressed: () => Navigator.pushNamed(context, '/cart'),
-          // )
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              height: 150.0,
+              width: 30.0,
+              child: Stack(
+                children: <Widget>[
+                  IconButton(
+                    iconSize: 30,
+                    icon: Icon(Icons.shopping_cart, color: Colors.white),
+
+                    onPressed: () => Navigator.pushNamed(context, '/cart')
+                  ),
+
+                  Positioned(
+                    top: 5,
+                    right: 10,
+                    child: Container(
+                      height: 20,
+                      width: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle
+                      ),
+                      child: Center(
+                        child: Text(ScopedModel.of<CartModel>(context,
+                            rebuildOnChange: true)
+                            .total.toString()),
+                      ),
+                    )
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
-      body:
-      GridView.builder(
+
+
+
+
+
+
+
+
+
+
+        // actions: <Widget>[
+        //
+        //
+        //   Card(
+        //     child: IconButton(
+        //       icon: Icon(Icons.shopping_cart),
+        //       onPressed: (
+        //
+        //           ) => Navigator.pushNamed(context, '/cart'),
+        //     ),
+        //
+        //   )
+        // ],
+
+
+      body:GridView.builder(
         padding: EdgeInsets.all(8.0),
         itemCount: _products.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount( crossAxisCount: 2, mainAxisSpacing: 8, crossAxisSpacing: 8, childAspectRatio: 0.8),
@@ -64,7 +119,12 @@ class HomePage extends StatelessWidget {
                   Text("\$"+_products[index].price.toString()),
                   OutlineButton(
                       child: Text("Add"),
-                      onPressed: () => model.addProduct(_products[index]))
+
+                      onPressed: () => model.addProduct(_products[index],
+                      )
+
+                  )
+
                 ]));
               });
         },

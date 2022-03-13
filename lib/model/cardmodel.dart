@@ -1,4 +1,5 @@
 import 'package:scoped_model/scoped_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Product {
   int ?id;
@@ -13,6 +14,10 @@ class Product {
 class CartModel extends Model {
   List<Product> cart = [];
   double totalCartValue = 0;
+  int _counter=0;
+  double _totalPrice = 0.0 ;
+  double get totalPrice => _totalPrice;
+  int get counter=>_counter;
 
   int get total => cart.length;
 
@@ -57,6 +62,24 @@ class CartModel extends Model {
     cart.forEach((f) {
       totalCartValue += f.price! * f.qty!;
     });
+  }
+  void _getPrefItems()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance() ;
+    _counter = prefs.getInt('cart_item') ?? 0;
+    _totalPrice = prefs.getDouble('total_price') ?? 0.0;
+    notifyListeners();
+  }
+  int getCounter (){
+    _getPrefItems();
+    return  _counter ;
+
+  }
+  getBasketQty(){
+    int total=0;
+    for(int i=0; i<cart.length;i++){
+      total +=cart[i].qty!;
+    }
+    return total;
   }
 }
 

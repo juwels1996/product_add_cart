@@ -62,7 +62,7 @@ class _CartPageState extends State<CartPage> {
                                   onPressed: () {
                                     model.updateProduct(model.cart[index],
                                         model.cart[index].qty! + 1);
-                                    // model.removeProduct(model.cart[index]);
+                                     //model.removeProduct(model.cart[index]);
                                   },
                                 ),
                                 IconButton(
@@ -70,7 +70,7 @@ class _CartPageState extends State<CartPage> {
                                   onPressed: () {
                                     model.updateProduct(model.cart[index],
                                         model.cart[index].qty! - 1);
-                                    // model.removeProduct(model.cart[index]);
+
                                   },
                                 ),
                               ]),
